@@ -441,10 +441,23 @@ Profiling rules:
 Metric results (real Snowflake data):
 {json.dumps([m.model_dump() for m in results], indent=2)}
 
-Produce an InsightReport as JSON:
-{{"summary": "...", "findings": [{{"severity": "high|medium|low", "column": "...|null", "finding": "...", "recommendation": "..."}}]}}
+You MUST produce one finding for EVERY metric result provided. Do not skip any.
 
-Rules: cite actual numbers; high=>null_rate>20% or overlap<10% or match_rate=0; order high→medium→low; return ONLY JSON."""
+Severity rules (strict):
+- high: null_rate > 0.20, OR cross_system_overlap value < 0.10, OR match_rate = 0.0
+- medium: null_rate between 0.05 and 0.20, OR noteworthy distribution patterns
+- low: null_rate < 0.05, informational segment or join coverage findings
+
+For each finding:
+- Cite the exact metric value and absolute counts from the detail field
+- column: use the column name from the metric, or null for table-level findings
+- finding: one sentence with the specific number
+- recommendation: one concrete action
+
+Produce an InsightReport as a JSON object — no other text, no markdown fences:
+{{"summary": "<2-3 sentences citing actual row counts and key issues>", "findings": [{{"severity": "high|medium|low", "column": "<column or null>", "finding": "<specific observation with actual number>", "recommendation": "<concrete next step>"}}]}}
+
+Order findings: high first, then medium, then low. Return ONLY the raw JSON object."""
 
 
 def _revision_prompt(
