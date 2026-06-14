@@ -1,0 +1,48 @@
+{
+  "report": {
+    "summary": "The Customer entity has moderate-to-serious data quality issues across both Siebel and Salesforce. Segment classification fields carry high null rates in Siebel (20–24%), making reliable segment analysis impossible for roughly one in five records. The cross-system match key is missing for 8% of Salesforce accounts, blocking linkage for those records. Only 62% of Siebel customers with a populated match key appear in Salesforce, leaving 38% unmatched — a significant consolidation risk. Join coverage to the depth-1 related table s_contact is strong at 88%.",
+    "findings": [
+      {
+        "severity": "high",
+        "column": "market_type_cd",
+        "finding": "24% null rate on market_type_cd in Siebel (spark_ods.siebel.s_org_ext): 36,000 of 150,000 customer records lack a market type classification. Segment analysis by market type is unreliable for this cohort.",
+        "recommendation": "Investigate source system population rules for market_type_cd. Prioritize backfill for active customers before any CRM migration; agree on a default value for records that cannot be classified."
+      },
+      {
+        "severity": "high",
+        "column": "market_class_cd",
+        "finding": "20% null rate on market_class_cd in Siebel: 30,000 records have no market class. Together with market_type_cd nulls this means a material proportion of Siebel customers cannot be segmented using either field.",
+        "recommendation": "Align on permissible market class values with business stakeholders and apply defaults during migration ETL. Consider whether ENT/MID/SMB/GOV covers all real segments or whether new values are needed."
+      },
+      {
+        "severity": "high",
+        "column": null,
+        "finding": "Cross-system overlap: of the 142,500 Siebel records with a populated ou_num, only 88,200 (62%) match a Salesforce account via Customer_Number__c. 54,300 Siebel records are absent from Salesforce; 22,200 Salesforce accounts have no Siebel counterpart.",
+        "recommendation": "Define a reconciliation strategy for unmatched records before CRM consolidation: classify Siebel-only and Salesforce-only records as separate migration subsets with distinct handling rules."
+      },
+      {
+        "severity": "medium",
+        "column": "Customer_Number__c",
+        "finding": "8% null rate on the cross-system match key Customer_Number__c in Salesforce (spark_ods.salesforce_reports.accounts): 9,600 of 120,000 accounts cannot be linked to Siebel.",
+        "recommendation": "Determine whether nulls represent new Salesforce-only customers or data entry gaps. Source missing values from upstream Salesforce intake flows or mark records as unmatched before migration."
+      },
+      {
+        "severity": "low",
+        "column": "ou_num",
+        "finding": "5% null rate on ou_num in Siebel (7,500 records): the Siebel-side cross-system match key is missing for a small subset.",
+        "recommendation": "Investigate whether these are inactive or legacy records. If active, source ou_num from upstream Siebel systems before migration."
+      },
+      {
+        "severity": "low",
+        "column": null,
+        "finding": "Depth-1 join coverage: 88% of Siebel customer records (132,000 of 150,000) have at least one matching row in s_contact via row_id. 12% are orphaned at the contact level.",
+        "recommendation": "Review the 18,000 Siebel accounts with no linked contact record — these may be test accounts, defunct entities, or data entry gaps. Exclude from migration if confirmed inactive."
+      }
+    ]
+  },
+  "review_status": "approved",
+  "iterations": 1,
+  "review_history": [
+    {"approved": true, "feedback": []}
+  ]
+}

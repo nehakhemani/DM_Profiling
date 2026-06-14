@@ -1,0 +1,16 @@
+ENTITY: Customer
+PURPOSE: Data discovery and profiling for the customer entity (CRM consolidation)
+
+TABLES:
+- spark_ods.siebel.s_org_ext | system: Siebel | record key: row_id
+- spark_ods.salesforce_reports.accounts | system: Salesforce | record key: Id
+
+CROSS-SYSTEM MATCH:
+- s_org_ext.ou_num = accounts.Customer_Number__c
+
+PROFILING RULES (plain language, one per line):
+1. Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel
+2. Customers which are present in both systems
+3. Missing important data on key fields
+
+DISCOVERY: depth 1 (find related tables linked to the base tables via their record keys)

@@ -1,0 +1,87 @@
+{
+  "profiling_tasks": [
+    {
+      "type": "null_analysis",
+      "table": "spark_ods.siebel.s_org_ext",
+      "columns": ["row_id", "ou_num", "market_class_cd", "market_type_cd"],
+      "join_table": null,
+      "join_key": null,
+      "match": null,
+      "segment_columns": {},
+      "business_reason": "Missing important data on key fields"
+    },
+    {
+      "type": "null_analysis",
+      "table": "spark_ods.salesforce_reports.accounts",
+      "columns": ["Id", "Customer_Number__c", "Type"],
+      "join_table": null,
+      "join_key": null,
+      "match": null,
+      "segment_columns": {},
+      "business_reason": "Missing important data on key fields"
+    },
+    {
+      "type": "distribution_analysis",
+      "table": "spark_ods.siebel.s_org_ext",
+      "columns": ["market_class_cd", "market_type_cd"],
+      "join_table": null,
+      "join_key": null,
+      "match": null,
+      "segment_columns": {},
+      "business_reason": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel"
+    },
+    {
+      "type": "distribution_analysis",
+      "table": "spark_ods.salesforce_reports.accounts",
+      "columns": ["Type"],
+      "join_table": null,
+      "join_key": null,
+      "match": null,
+      "segment_columns": {},
+      "business_reason": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel"
+    },
+    {
+      "type": "segment_variation",
+      "table": null,
+      "columns": [],
+      "join_table": null,
+      "join_key": null,
+      "match": {
+        "left_table": "spark_ods.siebel.s_org_ext",
+        "left_column": "ou_num",
+        "right_table": "spark_ods.salesforce_reports.accounts",
+        "right_column": "Customer_Number__c"
+      },
+      "segment_columns": {
+        "spark_ods.siebel.s_org_ext": ["market_class_cd", "market_type_cd"],
+        "spark_ods.salesforce_reports.accounts": ["Type"]
+      },
+      "business_reason": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel"
+    },
+    {
+      "type": "cross_system_overlap",
+      "table": null,
+      "columns": [],
+      "join_table": null,
+      "join_key": null,
+      "match": {
+        "left_table": "spark_ods.siebel.s_org_ext",
+        "left_column": "ou_num",
+        "right_table": "spark_ods.salesforce_reports.accounts",
+        "right_column": "Customer_Number__c"
+      },
+      "segment_columns": {},
+      "business_reason": "Customers which are present in both systems"
+    },
+    {
+      "type": "join_analysis",
+      "table": "spark_ods.siebel.s_org_ext",
+      "columns": [],
+      "join_table": "spark_ods.siebel.s_contact",
+      "join_key": "row_id",
+      "match": null,
+      "segment_columns": {},
+      "business_reason": "Depth-1 discovery: link coverage for spark_ods.siebel.s_contact"
+    }
+  ]
+}

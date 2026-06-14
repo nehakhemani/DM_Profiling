@@ -1,0 +1,51 @@
+{
+  "entity": "Customer",
+  "purpose": "Data discovery and profiling for the customer entity (CRM consolidation)",
+  "tables": [
+    {
+      "fqn": "spark_ods.siebel.s_org_ext",
+      "system": "Siebel",
+      "record_key": "row_id"
+    },
+    {
+      "fqn": "spark_ods.salesforce_reports.accounts",
+      "system": "Salesforce",
+      "record_key": "Id"
+    }
+  ],
+  "cross_system_matches": [
+    {
+      "left_table": "spark_ods.siebel.s_org_ext",
+      "left_column": "ou_num",
+      "right_table": "spark_ods.salesforce_reports.accounts",
+      "right_column": "Customer_Number__c"
+    }
+  ],
+  "profiling_rules": [
+    {
+      "rule": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel",
+      "fields": [
+        "spark_ods.salesforce_reports.accounts.Type",
+        "spark_ods.siebel.s_org_ext.market_class_cd",
+        "spark_ods.siebel.s_org_ext.market_type_cd"
+      ]
+    },
+    {
+      "rule": "Customers which are present in both systems",
+      "fields": [
+        "spark_ods.siebel.s_org_ext.ou_num",
+        "spark_ods.salesforce_reports.accounts.Customer_Number__c"
+      ]
+    },
+    {
+      "rule": "Missing important data on key fields",
+      "fields": [
+        "spark_ods.siebel.s_org_ext.row_id",
+        "spark_ods.siebel.s_org_ext.ou_num",
+        "spark_ods.salesforce_reports.accounts.Id",
+        "spark_ods.salesforce_reports.accounts.Customer_Number__c"
+      ]
+    }
+  ],
+  "discovery_depth": 1
+}

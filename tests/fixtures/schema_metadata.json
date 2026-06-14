@@ -1,0 +1,26 @@
+[
+  {
+    "table": "spark_ods.siebel.s_org_ext",
+    "row_count": 150000,
+    "columns": [
+      {"table": "spark_ods.siebel.s_org_ext", "column": "row_id",         "data_type": "VARCHAR", "is_nullable": false},
+      {"table": "spark_ods.siebel.s_org_ext", "column": "ou_num",          "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.siebel.s_org_ext", "column": "market_class_cd", "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.siebel.s_org_ext", "column": "market_type_cd",  "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.siebel.s_org_ext", "column": "name",            "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.siebel.s_org_ext", "column": "status_cd",       "data_type": "VARCHAR", "is_nullable": true}
+    ]
+  },
+  {
+    "table": "spark_ods.salesforce_reports.accounts",
+    "row_count": 120000,
+    "columns": [
+      {"table": "spark_ods.salesforce_reports.accounts", "column": "Id",                 "data_type": "VARCHAR", "is_nullable": false},
+      {"table": "spark_ods.salesforce_reports.accounts", "column": "Customer_Number__c", "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.salesforce_reports.accounts", "column": "Type",               "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.salesforce_reports.accounts", "column": "Name",               "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.salesforce_reports.accounts", "column": "BillingCountry",     "data_type": "VARCHAR", "is_nullable": true},
+      {"table": "spark_ods.salesforce_reports.accounts", "column": "Phone",              "data_type": "VARCHAR", "is_nullable": true}
+    ]
+  }
+]

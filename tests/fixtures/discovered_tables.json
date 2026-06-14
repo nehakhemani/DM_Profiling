@@ -1,0 +1,20 @@
+[
+  {
+    "fqn": "spark_ods.siebel.s_contact",
+    "matched_column": "row_id",
+    "row_count": 480000,
+    "link_basis": "name_match"
+  },
+  {
+    "fqn": "spark_ods.siebel.s_addr_org",
+    "matched_column": "row_id",
+    "row_count": 210000,
+    "link_basis": "name_match"
+  },
+  {
+    "fqn": "spark_ods.salesforce_reports.contacts",
+    "matched_column": "Id",
+    "row_count": 390000,
+    "link_basis": "name_match"
+  }
+]

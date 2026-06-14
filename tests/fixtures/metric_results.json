@@ -1,0 +1,88 @@
+[
+  {"entity": "Customer", "table": "spark_ods.siebel.s_org_ext",          "column": "row_id",            "metric": "null_rate",     "value": 0.0,  "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.siebel.s_org_ext",          "column": "ou_num",             "metric": "null_rate",     "value": 0.05, "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.siebel.s_org_ext",          "column": "market_class_cd",    "metric": "null_rate",     "value": 0.20, "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.siebel.s_org_ext",          "column": "market_type_cd",     "metric": "null_rate",     "value": 0.24, "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.salesforce_reports.accounts","column": "Id",                 "metric": "null_rate",     "value": 0.0,  "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.salesforce_reports.accounts","column": "Customer_Number__c", "metric": "null_rate",     "value": 0.08, "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.salesforce_reports.accounts","column": "Type",               "metric": "null_rate",     "value": 0.03, "detail": {}},
+  {
+    "entity": "Customer",
+    "table": "spark_ods.siebel.s_org_ext",
+    "column": "market_class_cd",
+    "metric": "top_values",
+    "value": 4,
+    "detail": {"values": [
+      {"value": "ENT",  "frequency": 54000},
+      {"value": "MID",  "frequency": 38000},
+      {"value": "SMB",  "frequency": 20000},
+      {"value": "GOV",  "frequency": 8000}
+    ]}
+  },
+  {
+    "entity": "Customer",
+    "table": "spark_ods.siebel.s_org_ext",
+    "column": "market_type_cd",
+    "metric": "top_values",
+    "value": 3,
+    "detail": {"values": [
+      {"value": "DIRECT",  "frequency": 70000},
+      {"value": "CHANNEL", "frequency": 30000},
+      {"value": "OEM",     "frequency": 14000}
+    ]}
+  },
+  {
+    "entity": "Customer",
+    "table": "spark_ods.salesforce_reports.accounts",
+    "column": "Type",
+    "metric": "top_values",
+    "value": 3,
+    "detail": {"values": [
+      {"value": "Customer", "frequency": 80000},
+      {"value": "Partner",  "frequency": 22000},
+      {"value": "Prospect", "frequency": 14400}
+    ]}
+  },
+  {
+    "entity": "Customer",
+    "table": "spark_ods.siebel.s_org_ext",
+    "column": null,
+    "metric": "segment_cross_tab",
+    "value": 6,
+    "detail": {"rows": [
+      {"left_segment": "ENT", "right_segment": "Customer", "frequency": 42000},
+      {"left_segment": "MID", "right_segment": "Customer", "frequency": 28000},
+      {"left_segment": "SMB", "right_segment": "Customer", "frequency": 12000},
+      {"left_segment": "ENT", "right_segment": "Partner",  "frequency": 8000},
+      {"left_segment": "GOV", "right_segment": "Customer", "frequency": 3000},
+      {"left_segment": null,  "right_segment": "Customer", "frequency": 2500}
+    ]}
+  },
+  {
+    "entity": "Customer",
+    "table": "spark_ods.siebel.s_org_ext",
+    "column": null,
+    "metric": "cross_system_overlap",
+    "value": 0.619,
+    "detail": {
+      "left_keys": 142500,
+      "right_keys": 110400,
+      "in_both": 88200,
+      "left_only": 54300,
+      "right_only": 22200
+    }
+  },
+  {
+    "entity": "Customer",
+    "table": "spark_ods.siebel.s_org_ext",
+    "column": null,
+    "metric": "match_rate",
+    "value": 0.88,
+    "detail": {
+      "join_table": "spark_ods.siebel.s_contact",
+      "join_key": "row_id",
+      "total_records": 150000,
+      "matched_records": 132000
+    }
+  }
+]
