@@ -17,13 +17,13 @@
       {
         "severity": "high",
         "column": null,
-        "finding": "Cross-system overlap: of the 142,500 Siebel records with a populated ou_num, only 88,200 (62%) match a Salesforce account via Customer_Number__c. 54,300 Siebel records are absent from Salesforce; 22,200 Salesforce accounts have no Siebel counterpart.",
+        "finding": "Cross-system overlap: of the 142,500 Siebel records with a populated ou_num, only 88,200 (62%) match a Salesforce account via customer_number_c. 54,300 Siebel records are absent from Salesforce; 22,200 Salesforce accounts have no Siebel counterpart.",
         "recommendation": "Define a reconciliation strategy for unmatched records before CRM consolidation: classify Siebel-only and Salesforce-only records as separate migration subsets with distinct handling rules."
       },
       {
         "severity": "medium",
-        "column": "Customer_Number__c",
-        "finding": "8% null rate on the cross-system match key Customer_Number__c in Salesforce (spark_ods.salesforce_reports.account): 9,600 of 120,000 accounts cannot be linked to Siebel.",
+        "column": "customer_number_c",
+        "finding": "8% null rate on the cross-system match key customer_number_c in Salesforce (spark_ods.salesforce_reports.account): 9,600 of 120,000 accounts cannot be linked to Siebel.",
         "recommendation": "Determine whether nulls represent new Salesforce-only customers or data entry gaps. Source missing values from upstream Salesforce intake flows or mark records as unmatched before migration."
       },
       {

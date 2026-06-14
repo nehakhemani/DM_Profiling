@@ -15,7 +15,7 @@ def run_discovery(config: EntityConfig, settings: Settings) -> list[DiscoveredTa
     Real (Phase 5): queries INFORMATION_SCHEMA.COLUMNS — metadata only, no data SELECTs.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("discovered_tables.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("discovered_tables.json").read_text(encoding="utf-8-sig"))
         return [DiscoveredTable.model_validate(t) for t in raw]
 
     raise NotImplementedError("Live discovery not yet implemented — use --harness")

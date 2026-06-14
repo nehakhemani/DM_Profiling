@@ -18,7 +18,7 @@
       "left_table": "spark_ods.siebel.s_org_ext",
       "left_column": "ou_num",
       "right_table": "spark_ods.salesforce_reports.account",
-      "right_column": "Customer_Number__c"
+      "right_column": "customer_number_c"
     }
   ],
   "profiling_rules": [
@@ -34,7 +34,7 @@
       "rule": "Customers which are present in both systems",
       "fields": [
         "spark_ods.siebel.s_org_ext.ou_num",
-        "spark_ods.salesforce_reports.account.Customer_Number__c"
+        "spark_ods.salesforce_reports.account.customer_number_c"
       ]
     },
     {
@@ -43,7 +43,7 @@
         "spark_ods.siebel.s_org_ext.row_id",
         "spark_ods.siebel.s_org_ext.ou_num",
         "spark_ods.salesforce_reports.account.Id",
-        "spark_ods.salesforce_reports.account.Customer_Number__c"
+        "spark_ods.salesforce_reports.account.customer_number_c"
       ]
     }
   ],

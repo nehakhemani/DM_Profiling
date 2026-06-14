@@ -25,7 +25,7 @@ def execute_plan(
     timeout; persists raw JSONL under runs/{run_id}/.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("raw_query_results.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("raw_query_results.json").read_text(encoding="utf-8-sig"))
         return raw
 
     raise NotImplementedError("Live executor not yet implemented — use --harness")

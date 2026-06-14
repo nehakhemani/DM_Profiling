@@ -85,7 +85,7 @@ def _cmd_introspect(config_path: str, settings: Settings) -> None:
     from .introspection import get_schema_metadata
     from .discovery import run_discovery
 
-    config = EntityConfig.model_validate_json(Path(config_path).read_text(encoding="utf-8"))
+    config = EntityConfig.model_validate_json(Path(config_path).read_text(encoding="utf-8-sig"))
     schema_meta = get_schema_metadata(config, settings)
     print("Schema metadata:")
     for tm in schema_meta:

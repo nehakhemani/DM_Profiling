@@ -13,7 +13,7 @@
     {
       "type": "null_analysis",
       "table": "spark_ods.salesforce_reports.account",
-      "columns": ["Id", "Customer_Number__c", "Type"],
+      "columns": ["Id", "customer_number_c", "Type"],
       "join_table": null,
       "join_key": null,
       "match": null,
@@ -50,7 +50,7 @@
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
         "right_table": "spark_ods.salesforce_reports.account",
-        "right_column": "Customer_Number__c"
+        "right_column": "customer_number_c"
       },
       "segment_columns": {
         "spark_ods.siebel.s_org_ext": ["market_class_cd", "market_type_cd"],
@@ -68,7 +68,7 @@
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
         "right_table": "spark_ods.salesforce_reports.account",
-        "right_column": "Customer_Number__c"
+        "right_column": "customer_number_c"
       },
       "segment_columns": {},
       "business_reason": "Customers which are present in both systems"

@@ -1,7 +1,7 @@
 -- ======================================================================
 -- Profiling run  : Customer
--- Run ID         : c30a4859
--- Generated      : 2026-06-14 12:33
+-- Run ID         : 384ae17c
+-- Generated      : 2026-06-14 12:36
 -- Purpose        : Data discovery and profiling for the customer entity (CRM consolidation)
 -- ----------------------------------------------------------------------
 -- Profiling rules:
@@ -65,14 +65,14 @@ SELECT
   (COUNT(*) - COUNT(Id)) / NULLIF(COUNT(*), 0) AS null_rate
 FROM spark_ods.salesforce_reports.account;
 
--- ── Task 6: null_analysis | account.Customer_Number__c ────────
+-- ── Task 6: null_analysis | account.customer_number_c ─────────
 -- Business reason: Missing important data on key fields
--- Export this result as: task_06_null_analysis__account_Customer_Number__.csv
+-- Export this result as: task_06_null_analysis__account_customer_number_c.csv
 SELECT
-  'Customer_Number__c' AS column_name,
+  'customer_number_c' AS column_name,
   COUNT(*) AS total_rows,
-  COUNT(Customer_Number__c) AS non_nulls,
-  (COUNT(*) - COUNT(Customer_Number__c)) / NULLIF(COUNT(*), 0) AS null_rate
+  COUNT(customer_number_c) AS non_nulls,
+  (COUNT(*) - COUNT(customer_number_c)) / NULLIF(COUNT(*), 0) AS null_rate
 FROM spark_ods.salesforce_reports.account;
 
 -- ── Task 7: null_analysis | account.Type ──────────────────────
@@ -148,7 +148,7 @@ SELECT
   COUNT(*) AS frequency
 FROM spark_ods.siebel.s_org_ext a
 JOIN spark_ods.salesforce_reports.account b
-  ON a.ou_num = b.Customer_Number__c
+  ON a.ou_num = b.customer_number_c
 GROUP BY 1, 2
 ORDER BY frequency DESC
 LIMIT 100;
@@ -162,23 +162,23 @@ SELECT
   COUNT(*) AS frequency
 FROM spark_ods.siebel.s_org_ext a
 JOIN spark_ods.salesforce_reports.account b
-  ON a.ou_num = b.Customer_Number__c
+  ON a.ou_num = b.customer_number_c
 GROUP BY 1, 2
 ORDER BY frequency DESC
 LIMIT 100;
 
--- ── Task 16: cross_system_overlap | ou_num = Customer_Number__c ─
+-- ── Task 16: cross_system_overlap | ou_num = customer_number_c ─
 -- Business reason: Customers which are present in both systems
--- Export this result as: task_16_cross_system_overlap__ou_num_=_Customer_.csv
+-- Export this result as: task_16_cross_system_overlap__ou_num_=_customer_.csv
 WITH l AS (
   SELECT DISTINCT ou_num AS k
   FROM spark_ods.siebel.s_org_ext
   WHERE ou_num IS NOT NULL
 ),
 r AS (
-  SELECT DISTINCT Customer_Number__c AS k
+  SELECT DISTINCT customer_number_c AS k
   FROM spark_ods.salesforce_reports.account
-  WHERE Customer_Number__c IS NOT NULL
+  WHERE customer_number_c IS NOT NULL
 )
 SELECT
   (SELECT COUNT(*) FROM l)                                  AS left_keys,

@@ -18,7 +18,7 @@ def extract_entity_config(raw_text: str, settings: Settings) -> tuple[EntityConf
         must print them and exit without proceeding.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("entity_config.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("entity_config.json").read_text(encoding="utf-8-sig"))
         return EntityConfig.model_validate(raw), []
 
     raise NotImplementedError("Live extractor not yet implemented — use --harness")

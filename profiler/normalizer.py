@@ -18,7 +18,7 @@ def normalize_results(
     Real (Phase 3): maps each task type's raw rows to MetricResult records per §5.7.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("metric_results.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("metric_results.json").read_text(encoding="utf-8-sig"))
         return [MetricResult.model_validate(r) for r in raw]
 
     raise NotImplementedError("Live normalizer not yet implemented — use --harness")

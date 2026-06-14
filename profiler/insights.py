@@ -24,7 +24,7 @@ def generate_insights(
     retries once on parse failure.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("insight_report.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("insight_report.json").read_text(encoding="utf-8-sig"))
         return InsightReport.model_validate(raw)
 
     raise NotImplementedError("Live insight generator not yet implemented — use --harness")

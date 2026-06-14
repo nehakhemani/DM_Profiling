@@ -30,7 +30,7 @@ def review_report(
     treats approved=true with non-empty feedback as a parse failure and retries once.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("review_feedback.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("review_feedback.json").read_text(encoding="utf-8-sig"))
         return ReviewFeedback.model_validate(raw)
 
     raise NotImplementedError("Live reviewer not yet implemented — use --harness")

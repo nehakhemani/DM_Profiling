@@ -14,7 +14,7 @@ def get_schema_metadata(config: EntityConfig, settings: Settings) -> list[TableM
     Real (Phase 4): queries INFORMATION_SCHEMA with bound parameters.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("schema_metadata.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("schema_metadata.json").read_text(encoding="utf-8-sig"))
         return [TableMeta.model_validate(t) for t in raw]
 
     raise NotImplementedError("Live introspection not yet implemented — use --harness")

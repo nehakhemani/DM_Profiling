@@ -21,7 +21,7 @@ def plan_profiling(
     JSON parse failure.
     """
     if settings.harness:
-        raw = json.loads(settings.fixture_path("profiling_plan.json").read_text(encoding="utf-8"))
+        raw = json.loads(settings.fixture_path("profiling_plan.json").read_text(encoding="utf-8-sig"))
         return ProfilingPlan.model_validate(raw)
 
     raise NotImplementedError("Live planner not yet implemented — use --harness")

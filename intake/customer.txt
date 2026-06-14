@@ -6,7 +6,7 @@ TABLES:
 - spark_ods.salesforce_reports.account | system: Salesforce | record key: Id
 
 CROSS-SYSTEM MATCH:
-- s_org_ext.ou_num = accounts.Customer_Number__c
+- s_org_ext.ou_num = accounts.customer_number_c
 
 PROFILING RULES (plain language, one per line):
 1. Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel

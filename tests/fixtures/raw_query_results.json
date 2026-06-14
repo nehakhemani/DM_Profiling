@@ -68,13 +68,13 @@
     "task": {
       "type": "null_analysis",
       "table": "spark_ods.salesforce_reports.account",
-      "columns": ["Customer_Number__c"],
+      "columns": ["customer_number_c"],
       "join_table": null, "join_key": null, "match": null, "segment_columns": {},
       "business_reason": "Missing important data on key fields"
     },
-    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.account.Customer_Number__c",
+    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.account.customer_number_c",
     "status": "success",
-    "rows": [{"column_name": "Customer_Number__c", "total_rows": 120000, "non_nulls": 110400, "null_rate": 0.08}],
+    "rows": [{"column_name": "customer_number_c", "total_rows": 120000, "non_nulls": 110400, "null_rate": 0.08}],
     "error": null
   },
   {
@@ -156,7 +156,7 @@
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
         "right_table": "spark_ods.salesforce_reports.account",
-        "right_column": "Customer_Number__c"
+        "right_column": "customer_number_c"
       },
       "segment_columns": {
         "spark_ods.siebel.s_org_ext": ["market_class_cd", "market_type_cd"],
@@ -187,12 +187,12 @@
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
         "right_table": "spark_ods.salesforce_reports.account",
-        "right_column": "Customer_Number__c"
+        "right_column": "customer_number_c"
       },
       "segment_columns": {},
       "business_reason": "Customers which are present in both systems"
     },
-    "sql": "-- fixture: cross_system_overlap ou_num = Customer_Number__c",
+    "sql": "-- fixture: cross_system_overlap ou_num = customer_number_c",
     "status": "success",
     "rows": [
       {"left_keys": 142500, "right_keys": 110400, "in_both": 88200, "left_only": 54300, "right_only": 22200}
