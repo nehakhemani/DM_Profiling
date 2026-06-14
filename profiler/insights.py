@@ -391,11 +391,17 @@ def _complete_ollama(prompt: str) -> str:
     import urllib.request, json as _json
     host  = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
     model = os.environ.get("OLLAMA_MODEL", "llama3.1")
-    body  = _json.dumps({"model": model, "prompt": prompt, "stream": False}).encode()
-    req   = urllib.request.Request(f"{host}/api/generate", data=body,
-                                   headers={"Content-Type": "application/json"})
+    body  = _json.dumps({
+        "model": model,
+        "stream": False,
+        "messages": [{"role": "user", "content": prompt}],
+    }).encode()
+    req = urllib.request.Request(
+        f"{host}/api/chat", data=body,
+        headers={"Content-Type": "application/json"},
+    )
     with urllib.request.urlopen(req, timeout=120) as resp:
-        return _json.loads(resp.read())["response"]
+        return _json.loads(resp.read())["message"]["content"]
 
 
 # ── Shared JSON helper (also used by reviewer.py) ────────────────────────────
