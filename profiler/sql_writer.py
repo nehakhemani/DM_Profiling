@@ -174,4 +174,7 @@ def _short(fqn: str) -> str:
 
 
 def _safe(label: str) -> str:
-    return label.replace(" ", "_").replace("|", "").replace("/", "_").replace(".", "_")[:40]
+    return (label
+            .encode("ascii", "replace").decode()
+            .replace(" ", "_").replace("|", "").replace("/", "_").replace(".", "_")
+            .replace("?", "-"))[:40]

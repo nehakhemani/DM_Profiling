@@ -1,39 +1,16 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 from .config import Settings
-from .insights import generate_insights
+from .insights import generate_insights, review_report
 from .models import (
     EntityConfig,
-    InsightReport,
     MetricResult,
     ProfilingPlan,
     ReviewFeedback,
     ReviewedReport,
 )
-
-
-def review_report(
-    config: EntityConfig,
-    plan: ProfilingPlan,
-    results: list[MetricResult],
-    report: InsightReport,
-    settings: Settings,
-) -> ReviewFeedback:
-    """
-    Single review call against the §5.9 five-dimension rubric.
-
-    Harness: loads tests/fixtures/review_feedback.json.
-    Real (Phase 8): calls LLM at temperature=0; validates against ReviewFeedback;
-    treats approved=true with non-empty feedback as a parse failure and retries once.
-    """
-    if settings.harness:
-        raw = json.loads(settings.fixture_path("review_feedback.json").read_text(encoding="utf-8-sig"))
-        return ReviewFeedback.model_validate(raw)
-
-    raise NotImplementedError("Live reviewer not yet implemented — use --harness")
 
 
 def run_review_loop(
@@ -44,10 +21,8 @@ def run_review_loop(
     run_id: str,
 ) -> ReviewedReport:
     """
-    Orchestrates the generate → review → revise loop (§5.9).
-
-    This is the final loop logic — it is not replaced in later phases;
-    only generate_insights and review_report are replaced.
+    Orchestrates the generate -> review -> revise loop.
+    Only generate_insights and review_report are replaced per phase; this loop is not rewritten.
     """
     run_dir = settings.run_dir()
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -58,7 +33,7 @@ def run_review_loop(
     for i in range(1, settings.max_review_iterations + 1):
         feedback = review_report(config, plan, results, report, settings)
 
-        # Contract enforcement: approved=true must have empty feedback
+        # Contract: approved=true must have empty feedback
         if feedback.approved and feedback.feedback:
             feedback = ReviewFeedback(approved=False, feedback=feedback.feedback)
 

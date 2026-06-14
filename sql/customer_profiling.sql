@@ -1,7 +1,7 @@
 -- ======================================================================
 -- Profiling run  : Customer
--- Run ID         : 384ae17c
--- Generated      : 2026-06-14 12:36
+-- Run ID         : 01a886b7
+-- Generated      : 2026-06-14 13:16
 -- Purpose        : Data discovery and profiling for the customer entity (CRM consolidation)
 -- ----------------------------------------------------------------------
 -- Profiling rules:
@@ -189,7 +189,7 @@ SELECT
 
 -- ── Task 17: join_analysis | s_org_ext → s_contact ─────────────
 -- Business reason: Depth-1 discovery: link coverage for spark_ods.siebel.s_contact
--- Export this result as: task_17_join_analysis__s_org_ext_→_s_contact.csv
+-- Export this result as: task_17_join_analysis__s_org_ext_-_s_contact.csv
 SELECT
   COUNT(*) AS total_records,
   COUNT(CASE WHEN EXISTS (

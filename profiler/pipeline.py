@@ -66,7 +66,9 @@ def run(input_path: str, settings: Settings) -> None:
         print("Export each result set as CSV / Excel for further analysis.")
         return
 
-    # Stage 7 — Execute (harness: loads fixture; real: future phase)
+    # Stage 7 — Execute queries (harness: fixture; from_results: read pre-run CSVs; real: future)
+    if settings.from_results:
+        print(f"  Loading CSVs from {settings.results_dir}/")
     raw_results = execute_plan(plan, config, whitelist, settings, run_id)
 
     # Stage 8 — Normalize raw rows into MetricResult records
