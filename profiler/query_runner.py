@@ -4,9 +4,7 @@ import csv
 import re
 from pathlib import Path
 
-from ._snowflake import connect as _sf_connect
-
-_QUERY_TIMEOUT_S = 55
+from ._snowflake import connect as _sf_connect, safe_execute
 
 
 def run_sql_file(sql_path: str, results_dir: str) -> list[str]:
@@ -15,27 +13,29 @@ def run_sql_file(sql_path: str, results_dir: str) -> list[str]:
     (SPARKNZ-DATA profile from ~/.snowflake/connections.toml), and writes
     one CSV per block under results_dir.
 
+    Only SELECT/WITH statements are permitted — safe_execute blocks anything else.
+    Session timeout is set to 60s by the connection helper.
+
     Returns a list of written CSV paths.
     """
     blocks = _parse_blocks(Path(sql_path).read_text(encoding="utf-8-sig"))
     if not blocks:
         raise ValueError(f"No query blocks found in {sql_path}")
 
-    print("\nConnecting to Snowflake as T823130@SPARK.CO.NZ (externalbrowser SSO)...")
+    print("\nConnecting to Snowflake (externalbrowser SSO)...")
     print("A browser tab will open — log in to continue.\n")
     conn = _sf_connect()
-    conn.cursor().execute(f"ALTER SESSION SET STATEMENT_TIMEOUT_IN_SECONDS = {_QUERY_TIMEOUT_S}")
 
     out = Path(results_dir)
     out.mkdir(parents=True, exist_ok=True)
 
     written: list[str] = []
     for block in blocks:
-        safe_label = block['label'].encode('ascii', 'replace').decode()
+        safe_label = block["label"].encode("ascii", "replace").decode()
         print(f"  Running task {block['num']:>2}: {safe_label} ...", end=" ", flush=True)
         try:
             cur = conn.cursor()
-            cur.execute(block["sql"])
+            safe_execute(cur, block["sql"])
             rows = cur.fetchall()
             col_names = [d[0] for d in cur.description]
 
@@ -56,8 +56,7 @@ def run_sql_file(sql_path: str, results_dir: str) -> list[str]:
 
 # ── SQL file parser ───────────────────────────────────────────────────────────
 
-# U+2500 BOX DRAWINGS LIGHT HORIZONTAL — the character used in the task header
-_BOX = "─"
+_BOX     = "─"   # U+2500 BOX DRAWINGS LIGHT HORIZONTAL
 _TASK_RE = re.compile(rf"-- {_BOX}+ Task (\d+): (.+?) {_BOX}+")
 _CSV_RE  = re.compile(r"-- Export this result as: (.+\.csv)")
 
@@ -95,7 +94,6 @@ def _parse_blocks(text: str) -> list[dict]:
         if current["sql"]:
             blocks.append(current)
 
-    # Fallback csv_name for any block that lacked the export comment
     for b in blocks:
         if not b["csv_name"]:
             b["csv_name"] = f"task_{b['num']:02d}.csv"
@@ -104,7 +102,4 @@ def _parse_blocks(text: str) -> list[dict]:
 
 
 def _extract_sql(lines: list[str]) -> str:
-    sql = "\n".join(lines).strip().rstrip(";").strip()
-    return sql
-
-
+    return "\n".join(lines).strip().rstrip(";").strip()

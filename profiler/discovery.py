@@ -5,7 +5,6 @@ import json
 from .config import Settings
 from .models import DiscoveredTable, EntityConfig
 
-_QUERY_TIMEOUT_S = 55  # hard stop before the 1-min mark
 
 
 def run_discovery(config: EntityConfig, settings: Settings) -> list[DiscoveredTable]:
@@ -30,12 +29,11 @@ def run_discovery(config: EntityConfig, settings: Settings) -> list[DiscoveredTa
 # ── Live discovery ────────────────────────────────────────────────────────────
 
 def _live_discovery(config: EntityConfig, settings: Settings) -> list[DiscoveredTable]:
-    from ._snowflake import connect
+    from ._snowflake import connect, safe_execute as _safe_exec
 
     print("\n  [discovery] Opening Snowflake connection (externalbrowser SSO)...")
     conn = connect()
     cur  = conn.cursor()
-    cur.execute(f"ALTER SESSION SET STATEMENT_TIMEOUT_IN_SECONDS = {_QUERY_TIMEOUT_S}")
 
     seen:    dict[str, DiscoveredTable] = {}   # fqn → best result
     base_fqns = {t.fqn.upper() for t in config.tables}
@@ -94,7 +92,7 @@ ORDER BY row_count DESC NULLS LAST
 LIMIT 30
 """
     try:
-        cur.execute(sql)
+        _safe_exec(cur, sql)
         rows = cur.fetchall()
     except Exception:
         return []   # INFORMATION_SCHEMA may not expose referential constraints in all editions
@@ -133,7 +131,7 @@ WHERE c.TABLE_CATALOG   = '{catalog}'
 ORDER BY t.ROW_COUNT DESC NULLS LAST
 LIMIT {limit}
 """
-    cur.execute(sql)
+    _safe_exec(cur, sql)
     rows = cur.fetchall()
 
     results = []
