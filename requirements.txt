@@ -1,0 +1,7 @@
+snowflake-connector-python>=3.6.0
+pydantic>=2.0.0
+
+# Optional LLM providers — install whichever you use
+anthropic>=0.25.0        # set ANTHROPIC_API_KEY
+groq>=0.9.0              # set GROQ_API_KEY
+# Ollama: no package needed — run `ollama serve` locally
