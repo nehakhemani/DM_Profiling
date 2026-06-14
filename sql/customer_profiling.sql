@@ -1,7 +1,7 @@
 -- ======================================================================
 -- Profiling run  : Customer
--- Run ID         : dc97bcfc
--- Generated      : 2026-06-14 12:29
+-- Run ID         : c30a4859
+-- Generated      : 2026-06-14 12:33
 -- Purpose        : Data discovery and profiling for the customer entity (CRM consolidation)
 -- ----------------------------------------------------------------------
 -- Profiling rules:
@@ -55,35 +55,35 @@ SELECT
   (COUNT(*) - COUNT(market_type_cd)) / NULLIF(COUNT(*), 0) AS null_rate
 FROM spark_ods.siebel.s_org_ext;
 
--- ── Task 5: null_analysis | accounts.Id ───────────────────────
+-- ── Task 5: null_analysis | account.Id ────────────────────────
 -- Business reason: Missing important data on key fields
--- Export this result as: task_05_null_analysis__accounts_Id.csv
+-- Export this result as: task_05_null_analysis__account_Id.csv
 SELECT
   'Id' AS column_name,
   COUNT(*) AS total_rows,
   COUNT(Id) AS non_nulls,
   (COUNT(*) - COUNT(Id)) / NULLIF(COUNT(*), 0) AS null_rate
-FROM spark_ods.salesforce_reports.accounts;
+FROM spark_ods.salesforce_reports.account;
 
--- ── Task 6: null_analysis | accounts.Customer_Number__c ───────
+-- ── Task 6: null_analysis | account.Customer_Number__c ────────
 -- Business reason: Missing important data on key fields
--- Export this result as: task_06_null_analysis__accounts_Customer_Number_.csv
+-- Export this result as: task_06_null_analysis__account_Customer_Number__.csv
 SELECT
   'Customer_Number__c' AS column_name,
   COUNT(*) AS total_rows,
   COUNT(Customer_Number__c) AS non_nulls,
   (COUNT(*) - COUNT(Customer_Number__c)) / NULLIF(COUNT(*), 0) AS null_rate
-FROM spark_ods.salesforce_reports.accounts;
+FROM spark_ods.salesforce_reports.account;
 
--- ── Task 7: null_analysis | accounts.Type ─────────────────────
+-- ── Task 7: null_analysis | account.Type ──────────────────────
 -- Business reason: Missing important data on key fields
--- Export this result as: task_07_null_analysis__accounts_Type.csv
+-- Export this result as: task_07_null_analysis__account_Type.csv
 SELECT
   'Type' AS column_name,
   COUNT(*) AS total_rows,
   COUNT(Type) AS non_nulls,
   (COUNT(*) - COUNT(Type)) / NULLIF(COUNT(*), 0) AS null_rate
-FROM spark_ods.salesforce_reports.accounts;
+FROM spark_ods.salesforce_reports.account;
 
 -- ── Task 8: distribution_analysis | s_org_ext.market_class_cd ─
 -- Business reason: Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel
@@ -103,11 +103,11 @@ GROUP BY market_type_cd
 ORDER BY frequency DESC
 LIMIT 50;
 
--- ── Task 10: distribution_analysis | accounts.Type ─────────────
+-- ── Task 10: distribution_analysis | account.Type ──────────────
 -- Business reason: Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel
--- Export this result as: task_10_distribution_analysis__accounts_Type.csv
+-- Export this result as: task_10_distribution_analysis__account_Type.csv
 SELECT Type AS value, COUNT(*) AS frequency
-FROM spark_ods.salesforce_reports.accounts
+FROM spark_ods.salesforce_reports.account
 GROUP BY Type
 ORDER BY frequency DESC
 LIMIT 50;
@@ -134,7 +134,7 @@ LIMIT 50;
 -- Business reason: Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel
 -- Export this result as: task_13_segment_distribution__Salesforce_Type.csv
 SELECT Type AS value, COUNT(*) AS frequency
-FROM spark_ods.salesforce_reports.accounts
+FROM spark_ods.salesforce_reports.account
 GROUP BY Type
 ORDER BY frequency DESC
 LIMIT 50;
@@ -147,7 +147,7 @@ SELECT
   b.Type AS right_segment,
   COUNT(*) AS frequency
 FROM spark_ods.siebel.s_org_ext a
-JOIN spark_ods.salesforce_reports.accounts b
+JOIN spark_ods.salesforce_reports.account b
   ON a.ou_num = b.Customer_Number__c
 GROUP BY 1, 2
 ORDER BY frequency DESC
@@ -161,7 +161,7 @@ SELECT
   b.Type AS right_segment,
   COUNT(*) AS frequency
 FROM spark_ods.siebel.s_org_ext a
-JOIN spark_ods.salesforce_reports.accounts b
+JOIN spark_ods.salesforce_reports.account b
   ON a.ou_num = b.Customer_Number__c
 GROUP BY 1, 2
 ORDER BY frequency DESC
@@ -177,7 +177,7 @@ WITH l AS (
 ),
 r AS (
   SELECT DISTINCT Customer_Number__c AS k
-  FROM spark_ods.salesforce_reports.accounts
+  FROM spark_ods.salesforce_reports.account
   WHERE Customer_Number__c IS NOT NULL
 )
 SELECT

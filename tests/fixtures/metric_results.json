@@ -3,9 +3,9 @@
   {"entity": "Customer", "table": "spark_ods.siebel.s_org_ext",          "column": "ou_num",             "metric": "null_rate",     "value": 0.05, "detail": {}},
   {"entity": "Customer", "table": "spark_ods.siebel.s_org_ext",          "column": "market_class_cd",    "metric": "null_rate",     "value": 0.20, "detail": {}},
   {"entity": "Customer", "table": "spark_ods.siebel.s_org_ext",          "column": "market_type_cd",     "metric": "null_rate",     "value": 0.24, "detail": {}},
-  {"entity": "Customer", "table": "spark_ods.salesforce_reports.accounts","column": "Id",                 "metric": "null_rate",     "value": 0.0,  "detail": {}},
-  {"entity": "Customer", "table": "spark_ods.salesforce_reports.accounts","column": "Customer_Number__c", "metric": "null_rate",     "value": 0.08, "detail": {}},
-  {"entity": "Customer", "table": "spark_ods.salesforce_reports.accounts","column": "Type",               "metric": "null_rate",     "value": 0.03, "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.salesforce_reports.account","column": "Id",                 "metric": "null_rate",     "value": 0.0,  "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.salesforce_reports.account","column": "Customer_Number__c", "metric": "null_rate",     "value": 0.08, "detail": {}},
+  {"entity": "Customer", "table": "spark_ods.salesforce_reports.account","column": "Type",               "metric": "null_rate",     "value": 0.03, "detail": {}},
   {
     "entity": "Customer",
     "table": "spark_ods.siebel.s_org_ext",
@@ -33,7 +33,7 @@
   },
   {
     "entity": "Customer",
-    "table": "spark_ods.salesforce_reports.accounts",
+    "table": "spark_ods.salesforce_reports.account",
     "column": "Type",
     "metric": "top_values",
     "value": 3,

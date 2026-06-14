@@ -23,7 +23,7 @@
       {
         "severity": "medium",
         "column": "Customer_Number__c",
-        "finding": "8% null rate on the cross-system match key Customer_Number__c in Salesforce (spark_ods.salesforce_reports.accounts): 9,600 of 120,000 accounts cannot be linked to Siebel.",
+        "finding": "8% null rate on the cross-system match key Customer_Number__c in Salesforce (spark_ods.salesforce_reports.account): 9,600 of 120,000 accounts cannot be linked to Siebel.",
         "recommendation": "Determine whether nulls represent new Salesforce-only customers or data entry gaps. Source missing values from upstream Salesforce intake flows or mark records as unmatched before migration."
       },
       {

@@ -3,7 +3,7 @@ PURPOSE: Data discovery and profiling for the customer entity (CRM consolidation
 
 TABLES:
 - spark_ods.siebel.s_org_ext | system: Siebel | record key: row_id
-- spark_ods.salesforce_reports.accounts | system: Salesforce | record key: Id
+- spark_ods.salesforce_reports.account | system: Salesforce | record key: Id
 
 CROSS-SYSTEM MATCH:
 - s_org_ext.ou_num = accounts.Customer_Number__c

@@ -12,7 +12,7 @@
     },
     {
       "type": "null_analysis",
-      "table": "spark_ods.salesforce_reports.accounts",
+      "table": "spark_ods.salesforce_reports.account",
       "columns": ["Id", "Customer_Number__c", "Type"],
       "join_table": null,
       "join_key": null,
@@ -32,7 +32,7 @@
     },
     {
       "type": "distribution_analysis",
-      "table": "spark_ods.salesforce_reports.accounts",
+      "table": "spark_ods.salesforce_reports.account",
       "columns": ["Type"],
       "join_table": null,
       "join_key": null,
@@ -49,12 +49,12 @@
       "match": {
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
-        "right_table": "spark_ods.salesforce_reports.accounts",
+        "right_table": "spark_ods.salesforce_reports.account",
         "right_column": "Customer_Number__c"
       },
       "segment_columns": {
         "spark_ods.siebel.s_org_ext": ["market_class_cd", "market_type_cd"],
-        "spark_ods.salesforce_reports.accounts": ["Type"]
+        "spark_ods.salesforce_reports.account": ["Type"]
       },
       "business_reason": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel"
     },
@@ -67,7 +67,7 @@
       "match": {
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
-        "right_table": "spark_ods.salesforce_reports.accounts",
+        "right_table": "spark_ods.salesforce_reports.account",
         "right_column": "Customer_Number__c"
       },
       "segment_columns": {},

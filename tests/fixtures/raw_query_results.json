@@ -54,12 +54,12 @@
   {
     "task": {
       "type": "null_analysis",
-      "table": "spark_ods.salesforce_reports.accounts",
+      "table": "spark_ods.salesforce_reports.account",
       "columns": ["Id"],
       "join_table": null, "join_key": null, "match": null, "segment_columns": {},
       "business_reason": "Missing important data on key fields"
     },
-    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.accounts.Id",
+    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.account.Id",
     "status": "success",
     "rows": [{"column_name": "Id", "total_rows": 120000, "non_nulls": 120000, "null_rate": 0.0}],
     "error": null
@@ -67,12 +67,12 @@
   {
     "task": {
       "type": "null_analysis",
-      "table": "spark_ods.salesforce_reports.accounts",
+      "table": "spark_ods.salesforce_reports.account",
       "columns": ["Customer_Number__c"],
       "join_table": null, "join_key": null, "match": null, "segment_columns": {},
       "business_reason": "Missing important data on key fields"
     },
-    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.accounts.Customer_Number__c",
+    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.account.Customer_Number__c",
     "status": "success",
     "rows": [{"column_name": "Customer_Number__c", "total_rows": 120000, "non_nulls": 110400, "null_rate": 0.08}],
     "error": null
@@ -80,12 +80,12 @@
   {
     "task": {
       "type": "null_analysis",
-      "table": "spark_ods.salesforce_reports.accounts",
+      "table": "spark_ods.salesforce_reports.account",
       "columns": ["Type"],
       "join_table": null, "join_key": null, "match": null, "segment_columns": {},
       "business_reason": "Missing important data on key fields"
     },
-    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.accounts.Type",
+    "sql": "-- fixture: null_analysis spark_ods.salesforce_reports.account.Type",
     "status": "success",
     "rows": [{"column_name": "Type", "total_rows": 120000, "non_nulls": 116400, "null_rate": 0.03}],
     "error": null
@@ -130,12 +130,12 @@
   {
     "task": {
       "type": "distribution_analysis",
-      "table": "spark_ods.salesforce_reports.accounts",
+      "table": "spark_ods.salesforce_reports.account",
       "columns": ["Type"],
       "join_table": null, "join_key": null, "match": null, "segment_columns": {},
       "business_reason": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel"
     },
-    "sql": "-- fixture: distribution_analysis spark_ods.salesforce_reports.accounts.Type",
+    "sql": "-- fixture: distribution_analysis spark_ods.salesforce_reports.account.Type",
     "status": "success",
     "rows": [
       {"value": "Customer",  "frequency": 80000},
@@ -155,12 +155,12 @@
       "match": {
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
-        "right_table": "spark_ods.salesforce_reports.accounts",
+        "right_table": "spark_ods.salesforce_reports.account",
         "right_column": "Customer_Number__c"
       },
       "segment_columns": {
         "spark_ods.siebel.s_org_ext": ["market_class_cd", "market_type_cd"],
-        "spark_ods.salesforce_reports.accounts": ["Type"]
+        "spark_ods.salesforce_reports.account": ["Type"]
       },
       "business_reason": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel"
     },
@@ -186,7 +186,7 @@
       "match": {
         "left_table": "spark_ods.siebel.s_org_ext",
         "left_column": "ou_num",
-        "right_table": "spark_ods.salesforce_reports.accounts",
+        "right_table": "spark_ods.salesforce_reports.account",
         "right_column": "Customer_Number__c"
       },
       "segment_columns": {},

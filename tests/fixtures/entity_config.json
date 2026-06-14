@@ -8,7 +8,7 @@
       "record_key": "row_id"
     },
     {
-      "fqn": "spark_ods.salesforce_reports.accounts",
+      "fqn": "spark_ods.salesforce_reports.account",
       "system": "Salesforce",
       "record_key": "Id"
     }
@@ -17,7 +17,7 @@
     {
       "left_table": "spark_ods.siebel.s_org_ext",
       "left_column": "ou_num",
-      "right_table": "spark_ods.salesforce_reports.accounts",
+      "right_table": "spark_ods.salesforce_reports.account",
       "right_column": "Customer_Number__c"
     }
   ],
@@ -25,7 +25,7 @@
     {
       "rule": "Look for all variations on customer segment — record type in Salesforce; market_class_cd and market_type_cd in Siebel",
       "fields": [
-        "spark_ods.salesforce_reports.accounts.Type",
+        "spark_ods.salesforce_reports.account.Type",
         "spark_ods.siebel.s_org_ext.market_class_cd",
         "spark_ods.siebel.s_org_ext.market_type_cd"
       ]
@@ -34,7 +34,7 @@
       "rule": "Customers which are present in both systems",
       "fields": [
         "spark_ods.siebel.s_org_ext.ou_num",
-        "spark_ods.salesforce_reports.accounts.Customer_Number__c"
+        "spark_ods.salesforce_reports.account.Customer_Number__c"
       ]
     },
     {
@@ -42,8 +42,8 @@
       "fields": [
         "spark_ods.siebel.s_org_ext.row_id",
         "spark_ods.siebel.s_org_ext.ou_num",
-        "spark_ods.salesforce_reports.accounts.Id",
-        "spark_ods.salesforce_reports.accounts.Customer_Number__c"
+        "spark_ods.salesforce_reports.account.Id",
+        "spark_ods.salesforce_reports.account.Customer_Number__c"
       ]
     }
   ],
