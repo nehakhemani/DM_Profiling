@@ -8,14 +8,6 @@ from pydantic import BaseModel, Field
 
 
 class Settings(BaseModel):
-    # Snowflake — all from environment, never hardcoded
-    snowflake_account: str = Field(default_factory=lambda: os.environ.get("SNOWFLAKE_ACCOUNT", ""))
-    snowflake_user: str = Field(default_factory=lambda: os.environ.get("SNOWFLAKE_USER", ""))
-    snowflake_password: str = Field(default_factory=lambda: os.environ.get("SNOWFLAKE_PASSWORD", ""))
-    snowflake_warehouse: str = Field(default_factory=lambda: os.environ.get("SNOWFLAKE_WAREHOUSE", ""))
-    snowflake_database: str = Field(default_factory=lambda: os.environ.get("SNOWFLAKE_DATABASE", ""))
-    snowflake_schema: str = Field(default_factory=lambda: os.environ.get("SNOWFLAKE_SCHEMA", ""))
-
     # Run behaviour
     max_review_iterations: int = 3
     query_timeout: int = 120

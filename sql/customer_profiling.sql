@@ -1,7 +1,7 @@
 -- ======================================================================
 -- Profiling run  : Customer
--- Run ID         : 01a886b7
--- Generated      : 2026-06-14 13:16
+-- Run ID         : 629554ec
+-- Generated      : 2026-06-14 13:53
 -- Purpose        : Data discovery and profiling for the customer entity (CRM consolidation)
 -- ----------------------------------------------------------------------
 -- Profiling rules:
